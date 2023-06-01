@@ -67,8 +67,9 @@ export function ProductSwimlane({
     ]
   };
   return (
-    // <Section className="text-white" heading={title}>
+  
        <div > 
+        <Section className="text-white" heading={title}></Section>
       <Slider {...settings}>
         {newCardData.map((product) => (
         
@@ -80,6 +81,5 @@ export function ProductSwimlane({
         ))}
         </Slider> 
        </div> 
-    // </Section>
   );
 }
