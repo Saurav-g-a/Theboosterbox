@@ -18,7 +18,7 @@ export function ProductSwimlane({
     className:"brands",
     slidesToShow: 5,
     slidesToScroll: 1,
-    initialSlide: 0,
+    initialSlide: 5,
     responsive: [
       {
         breakpoint: 1600,
@@ -63,7 +63,7 @@ export function ProductSwimlane({
   };
   return (
     // <Section className="text-white" heading={title}>
-       <div > 
+       <div className="text-white mb-16" heading={title}> 
       <Slider {...settings}>
         {products.map((product) => (
         

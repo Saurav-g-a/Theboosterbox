@@ -288,3 +288,22 @@ header span {
   object-fit: fill;
   min-width: initial !important;
 }
+
+.slick-dots li button:before {
+  font-size: 10px !important;
+  color: white !important;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: .75;
+  color: #fff !important;
+}
+
+.brands .slick-track {
+  padding: 25px 0px;
+}
+
+main#mainContent, .secondaryCardText-text, .prose {
+  color: white !important;
+}
+
