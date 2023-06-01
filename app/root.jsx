@@ -32,6 +32,18 @@ export const links = () => {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
+    {
+      rel:"stylesheet",
+      type:"text/css",
+      href:"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+    },
+{
+  rel:"stylesheet",
+  type:"text/css",
+  href:"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+}
+,
+
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 };
@@ -214,12 +226,28 @@ async function getLayoutData({storefront}) {
     ? parseMenu(data.headerMenu, customPrefixes)
     : 
     undefined;
-
   const footerMenu = data?.footerMenu
     ? parseMenu(data.footerMenu, customPrefixes)
     : undefined;
-
     headerMenu?.items?.push({
+      'id': 'gid://shopify/MenuItem/508825141528',
+     'resourceId': 'gid://shopify/Collection/291400614068',
+      'tags': [],
+      'title': 'Shop',
+      'to':"/collections",
+      'type': 'SHOP',
+      'url': 'https://bad-mage-gaming.myshopify.com/collections',
+    },
+    {
+      'id': 'gid://shopify/MenuItem/508825141528',
+     'resourceId': 'gid://shopify/Collection/291400614068',
+      'tags': [],
+      'title': 'Strategy',
+      'to':"/collections",
+      'type': 'STRATEGY',
+      'url': 'https://bad-mage-gaming.myshopify.com/collections',
+    },
+    {
       'id': 'gid://shopify/MenuItem/508825141528',
      'resourceId': 'gid://shopify/Collection/291400614068',
       'tags': [],
@@ -227,7 +255,17 @@ async function getLayoutData({storefront}) {
       'to':"/collections",
       'type': 'COLLECTION',
       'url': 'https://bad-mage-gaming.myshopify.com/collections',
+    },
+    {
+      'id': 'gid://shopify/MenuItem/508825141528',
+     'resourceId': 'gid://shopify/Collection/291400614068',
+      'tags': [],
+      'title': 'Calendar',
+      'to':"/collections",
+      'type': 'CALENDAR',
+      'url': 'https://bad-mage-gaming.myshopify.com/collections',
     }
+
   )
   return {shop: data.shop, headerMenu, footerMenu};
 }

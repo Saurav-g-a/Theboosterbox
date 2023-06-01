@@ -1,18 +1,18 @@
-import {defer} from '@shopify/remix-oxygen';
-import {Suspense} from 'react';
-import {Await, useLoaderData} from '@remix-run/react';
-import {ProductSwimlane, FeaturedCollections, Hero} from '~/components';
-import {MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT} from '~/data/fragments';
-import {getHeroPlaceholder} from '~/lib/placeholders';
-import {seoPayload} from '~/lib/seo.server';
-import {AnalyticsPageType} from '@shopify/hydrogen';
-import {routeHeaders, CACHE_SHORT} from '~/data/cache';
+import { defer } from '@shopify/remix-oxygen';
+import { Suspense } from 'react';
+import { Await, useLoaderData } from '@remix-run/react';
+import { ProductSwimlane, FeaturedCollections, Hero } from '~/components';
+import { MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT } from '~/data/fragments';
+import { getHeroPlaceholder } from '~/lib/placeholders';
+import { seoPayload } from '~/lib/seo.server';
+import { AnalyticsPageType } from '@shopify/hydrogen';
+import { routeHeaders, CACHE_SHORT } from '~/data/cache';
 import { Slider1 } from '~/components/Slider';
 
 export const headers = routeHeaders;
 
-export async function loader({params, context}) {
-  const {language, country} = context.storefront.i18n;
+export async function loader({ params, context }) {
+  const { language, country } = context.storefront.i18n;
 
   if (
     params.lang &&
@@ -20,11 +20,11 @@ export async function loader({params, context}) {
   ) {
     // If the lang URL param is defined, yet we still are on `EN-US`
     // the the lang param must be invalid, send to the 404 page
-    throw new Response(null, {status: 404});
+    throw new Response(null, { status: 404 });
   }
 
-  const {shop, hero} = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
-    variables: {handle: 'freestyle'},
+  const { shop, hero } = await context.storefront.query(HOMEPAGE_SEO_QUERY, {
+    variables: { handle: 'freestyle' },
   });
 
   const seo = seoPayload.home();
@@ -49,14 +49,14 @@ export async function loader({params, context}) {
           },
         },
       ),
-      secondaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
-        variables: {
-          handle: 'backcountry',
-          country,
-          language,
-        },
-      }),
-      blogData:context.storefront.query(BLOGS_QUERY,{
+      // secondaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
+      //   variables: {
+      //     handle: 'backcountry',
+      //     country,
+      //     language,
+      //   },
+      // }),
+      blogDatas: context.storefront.query(BLOGS_QUERY, {
         variables: {
           language,
         },
@@ -70,17 +70,16 @@ export async function loader({params, context}) {
           },
         },
       ),
-      tertiaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
-        variables: {
-          handle: 'winter-2022',
-          country,
-          language,
-        },
-      }),
+      // tertiaryHero: context.storefront.query(COLLECTION_HERO_QUERY, {
+      //   variables: {
+      //     handle: 'winter-2022',
+      //     country,
+      //     language,
+      //   },
+      // }),
       analytics: {
         pageType: AnalyticsPageType.home,
       },
-      seo,
     },
     {
       headers: {
@@ -89,34 +88,52 @@ export async function loader({params, context}) {
     },
   );
 }
-
 export default function Homepage() {
   const {
     primaryHero,
-    secondaryHero,
-    tertiaryHero,
     featuredCollections,
     featuredProducts,
-    blogData,
+    blogDatas,
   } = useLoaderData();
 
+  // console.log(blogData)
 
   // TODO: skeletons vs placeholders
   const skeletons = getHeroPlaceholder([{}, {}, {}]);
-  console.log('here',blogData)
   return (
     <>
       {primaryHero && (
         <Hero {...primaryHero} height="full" top loading="eager" />
       )}
-    <Slider1
-           data={blogData.articles}
-          title="Collections" />
 
-            {featuredCollections && (
+
+
+      {/* <Slider1
+           data={blogData.articles}
+          title="Collections" /> */}
+      {blogDatas && (
+        <Suspense>
+          <Await
+            resolve={blogDatas}
+          >
+            {(blogDatas) => {
+              console.log('s', blogDatas)
+              return (
+                <Slider1
+                  data={blogDatas.articles}
+                  title="Collections"
+                />
+              );
+            }}
+          </Await>
+        </Suspense>
+      )}
+
+      {featuredCollections && (
         <Suspense>
           <Await resolve={featuredCollections}>
-            {({collections}) => {
+            {({ collections }) => {
+              // console.log(collections.nodes)
               if (!collections?.nodes) return <></>;
               return (
                 <FeaturedCollections
@@ -131,7 +148,7 @@ export default function Homepage() {
       {featuredProducts && (
         <Suspense>
           <Await resolve={featuredProducts}>
-            {({products}) => {
+            {({ products }) => {
               if (!products?.nodes) return <></>;
               return (
                 <ProductSwimlane
@@ -145,29 +162,6 @@ export default function Homepage() {
         </Suspense>
       )}
 
-      {secondaryHero && (
-        <Suspense fallback={<Hero {...skeletons[1]} />}>
-          <Await resolve={secondaryHero}>
-            {({hero}) => {
-              if (!hero) return <></>;
-              return <Hero {...hero} />;
-            }}
-          </Await>
-        </Suspense>
-      )}
-
-    
-
-      {tertiaryHero && (
-        <Suspense fallback={<Hero {...skeletons[2]} />}>
-          <Await resolve={tertiaryHero}>
-            {({hero}) => {
-              if (!hero) return <></>;
-              return <Hero {...hero} />;
-            }}
-          </Await>
-        </Suspense>
-      )}
     </>
   );
 }
@@ -215,15 +209,15 @@ const HOMEPAGE_SEO_QUERY = `#graphql
   }
 `;
 
-const COLLECTION_HERO_QUERY = `#graphql
-  ${COLLECTION_CONTENT_FRAGMENT}
-  query collectionContent($handle: String, $country: CountryCode, $language: LanguageCode)
-  @inContext(country: $country, language: $language) {
-    hero: collection(handle: $handle) {
-      ...CollectionContent
-    }
-  }
-`;
+// const COLLECTION_HERO_QUERY = `#graphql
+//   ${COLLECTION_CONTENT_FRAGMENT}
+//   query collectionContent($handle: String, $country: CountryCode, $language: LanguageCode)
+//   @inContext(country: $country, language: $language) {
+//     hero: collection(handle: $handle) {
+//       ...CollectionContent
+//     }
+//   }
+// `;
 
 // @see: https://shopify.dev/api/storefront/2023-04/queries/products
 export const HOMEPAGE_FEATURED_PRODUCTS_QUERY = `#graphql
@@ -243,8 +237,8 @@ export const FEATURED_COLLECTIONS_QUERY = `#graphql
   query homepageFeaturedCollections($country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
     collections(
-      first: 5,
-      sortKey: UPDATED_AT
+      first: 100,
+      query: "collection_type:smart"
     ) {
       nodes {
         id
@@ -286,6 +280,5 @@ query Blog(
     }
   }
  }   
- }
 `;
 //   blog: blog(handle: "news") {

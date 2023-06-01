@@ -160,7 +160,7 @@ export default function Collections() {
 function CollectionCard({collection, loading}) {
   return (
     <Link to={`/collections/${collection.handle}`} className="grid gap-4">
-      <div className="card-image border-4 border-[#f9f9f91a] transition duration-700 ease-in-out rounded-bold  hover:border-white aspect-[3/2]">
+      <div className="card-image border-4 border-[#f9f9f91a] transition duration-700 ease-in-out hover:scale-105 rounded-bold  hover:border-white aspect-[3/2]">
         {collection?.image && (
           <Image
             data={collection.image}

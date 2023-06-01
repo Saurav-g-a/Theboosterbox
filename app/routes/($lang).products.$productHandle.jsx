@@ -227,7 +227,7 @@ export function ProductForm() {
         {selectedVariant && (
           <div className="grid items-stretch gap-4">
             {isOutOfStock ? (
-              <Button variant="secondary" className="bg-transparent border-2 border-white py-3 hover:bg-white hover:text-black rounded-[10px]" disabled>
+              <Button variant="secondary" disabled>
                 <Text>Sold out</Text>
               </Button>
             ) : (
@@ -239,7 +239,7 @@ export function ProductForm() {
                   },
                 ]}
                 variant="primary"
-                className='bg-transparent border-2 border-white py-3  hover:bg-white hover:text-black rounded-[10px]'
+                className='bg-transparent border-2 border-white py-3 rounded-[10px]'
                 data-test="add-to-cart"
                 analytics={{
                   products: [productAnalytics],

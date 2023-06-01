@@ -2,6 +2,8 @@
 // import { Carousel } from 'react-responsive-carousel';
 import { Link } from "@remix-run/react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 export function Slider1({
   data,
   title = 'Collections',
@@ -12,7 +14,6 @@ export function Slider1({
     className:"cursor-pointer overflow-visible hover:border-opacity-80 mt-5 homeslide ",
     centerMode: true,
     infinite: true,
-    centerPadding: "60px",
     slidesToShow: 1,
     autoplay: true,
     speed: 2000,
@@ -21,62 +22,61 @@ export function Slider1({
     dots: true,
    
   };
-  console.log('data',data)
-
+console.log('data',data.edges[0].node)
   return (
     <section className=" mx-auto ">
         <Slider {...settings} >
-        {/* <div>
-        <Link to={`/journal/${data[0]?.node?.handle}`}>
+       <div>
+        <Link to={`/journal/${data.edges[0]?.node?.handle}`}>
             <img
               className="object-cover rounded-lg hover:border-opacity-80 border-[2px] border-[#f9f9f9] border-opacity-10"
               loading="lazy"
               
-              src={data[0]?.node?.image?.url}
+              src={data.edges[0]?.node?.image?.url}
               alt=""
             />
         </Link>
         </div>
-        <div>
-        <Link to={`/journal/${data[1]?.node?.handle}`}>
+       <div>
+        <Link to={`/journal/${data.edges[1]?.node?.handle}`}>
             <img
               className="object-cover rounded-lg hover:border-opacity-80 border-[2px] border-[#f9f9f9] border-opacity-10"
               loading="lazy"
-              src={data[1]?.node?.image?.url}
+              src={data.edges[1]?.node?.image?.url}
               alt=""
             />
           </Link>
         </div>
         <div>
-        <Link to={`/journal/${data[2]?.node?.handle}`}>
+        <Link to={`/journal/${data.edges[2]?.node?.handle}`}>
             <img
               className="object-cover rounded-lg hover:border-opacity-80 border-[2px] border-[#f9f9f9] border-opacity-10"
               loading="lazy"
-              src={data[2]?.node?.image?.url}
+              src={data.edges[2]?.node?.image?.url}
               alt=""
             />
           </Link>
         </div>
         <div>
-        <Link to={`/journal/${data[3]?.node?.handle}`}>
+        <Link to={`/journal/${data.edges[3]?.node?.handle}`}>
             <img
               className="object-cover rounded-lg hover:border-opacity-80 border-[2px] border-[#f9f9f9] border-opacity-10"
               loading="lazy"
-              src={data[3]?.node?.image?.url}
+              src={data.edges[3]?.node?.image?.url}
               alt=""
             />
           </Link>
         </div>
         <div>
-        <Link to={`/journal/${data[4]?.node?.handle}`}>
+        <Link to={`/journal/${data.edges[4]?.node?.handle}`}>
             <img
               className="object-cover rounded-lg hover:border-opacity-80 border-[2px] border-[#f9f9f9] border-opacity-10"
               loading="lazy"
-              src={data[4]?.node?.image?.url}
+              src={data.edges[4]?.node?.image?.url}
               alt=""
             />
           </Link>
-        </div> */}
+        </div>
         </Slider>
     </section>
   );

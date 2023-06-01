@@ -10,10 +10,14 @@ export function FeaturedCollections({
   if (!haveCollections) return null;
   const items = collections.filter((item) => item.image).length;
 
+const filterData=collections.filter((item)=>{
+  return item.handle=='digimon'|| item.handle=='swag' || item.handle=='dragon-ball'  || item.handle=='one-piece-tcg-romance-dawn'|| item.handle=='flesh-and-blood'
+})
+
   return (
     <Section className="text-white" {...props} heading={title}>
-      <Grid  items={items}>
-        {collections.map((collection) => {
+      <Grid  items={items} className='px-[1.4rem]'>
+        {filterData.map((collection) => {
           if (!collection?.image) {
             return null;
           }
@@ -31,7 +35,7 @@ export function FeaturedCollections({
                     />
                   )}
                 </div>
-                <Heading className='text-white' size="copy">{collection.title}</Heading>
+                {/* <Heading className='text-white' size="copy">{collection.title}</Heading> */}
               </div>
             </Link>
           );

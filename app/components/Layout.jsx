@@ -25,6 +25,7 @@ import {useIsHydrated} from '~/hooks/useIsHydrated';
 import {useCartFetchers} from '~/hooks/useCartFetchers';
 
 export function Layout({children, layout}) {
+
   return (
     <>
       <div className="flex flex-col min-h-screen border-b-2">
@@ -47,6 +48,13 @@ export function Layout({children, layout}) {
 }
 
 function Header({title, menu}) {
+  const filterData=menu.items.filter((item)=>{
+    return item.title=='Shop'|| item.title=='Strategy' || item.title=='Games'  || item.title=='Calendar'
+ })
+ const data={
+  items:[]
+ }
+ data.items=filterData
   const isHome = useIsHomePath();
 
   const {
@@ -72,13 +80,13 @@ function Header({title, menu}) {
   return (
     <>
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
-      {menu && (
-        <MenuDrawer isOpen={isMenuOpen} onClose={closeMenu} menu={menu} />
+      {data && (
+        <MenuDrawer isOpen={isMenuOpen} onClose={closeMenu} menu={data} />
       )}
       <DesktopHeader
         isHome={isHome}
         title={title}
-        menu={menu}
+        menu={data}
         openCart={openCart}
       />
       <MobileHeader
@@ -118,6 +126,7 @@ export function MenuDrawer({isOpen, onClose, menu}) {
 }
 
 function MenuMobileNav({menu, onClose}) {
+
   return (
     <nav className="grid gap-4 p-6 sm:gap-6 sm:px-12 sm:py-8">
       {/* Top level menu items */}
@@ -131,7 +140,7 @@ function MenuMobileNav({menu, onClose}) {
               isActive ? 'pb-1 border-b -mb-px' : 'pb-1'
             }
           >
-            <Text as="span" size="copy">
+            <Text as="span" className='text-white' size="copy">
               {item.title}
             </Text>
           </Link>
@@ -176,8 +185,8 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
           <Input
             className={
               isHome
-                ? 'focus:border-contrast/20 dark:focus:border-primary/20'
-                : 'focus:border-primary/20'
+                ? 'focus:border-contrast/20 dark:focus:border-primary/20 active:border-b-2 active:border-white focus:border-b-2  focus:border-white'
+                : 'focus:border-primary/20 focus:border-b-2 active:border-b-2 active:border-white focus:border-white'
             }
             type="search"
             variant="minisearch"
@@ -266,8 +275,9 @@ function DesktopHeader({isHome, menu, openCart, title}) {
             <IconSearch />
           </button>
         </Form>
-        <AccountLink className="relative flex items-center justify-center w-8 h-8 focus:ring-primary/5 text-white" />
         <CartCount isHome={isHome} openCart={openCart} />
+        <AccountLink className="relative flex items-center justify-center w-8 h-8 focus:ring-primary/5 text-white" />
+      
       </div>
     </header>
   );
@@ -281,8 +291,9 @@ function AccountLink({className}) {
       <IconAccount />
     </Link>
   ) : (
-    <Link to="/account/login" className={className}>
-      <IconLogin />
+    <Link to="/account/login" className='text-white border-2 px-[40px] rounded-[10px] py-[10px] hover:bg-white hover:text-black mx-2'>
+      {/* <IconLogin /> */}
+      <p>Login</p>
     </Link>
   );
 }
@@ -292,6 +303,7 @@ function CartCount({isHome, openCart}) {
 
   return (
     <Suspense fallback={<Badge count={0} dark={isHome} openCart={openCart} />}>
+      <p className=' -me-2'>Bag</p>
       <Await resolve={root.data?.cart}>
         {(cart) => (
           <Badge

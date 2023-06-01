@@ -33,6 +33,7 @@
     "react-slick": "^0.29.0",
     "react-use": "^17.4.0",
     "schema-dts": "^1.1.0",
+    "slick-carousel": "^1.8.1",
     "tiny-invariant": "^1.2.0",
     "typographic-base": "^1.0.4",
     "worktop": "^0.7.3"

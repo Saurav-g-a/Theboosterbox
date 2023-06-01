@@ -13,7 +13,6 @@ export function ProductCard({
   quickAdd,
 }) {
   let cardLabel;
-console.log(product.priceRange.maxVariantPrice.amount)
   const cardProduct = product?.variants ? product : getProductPlaceholder();
   if (!cardProduct?.variants?.nodes?.length) return null;
 
@@ -122,7 +121,7 @@ console.log(product.priceRange.maxVariantPrice.amount)
               },
             ]}
             variant="secondary"
-            className="mt-2 border-2 border-white bg-transparent py-2 hover:bg-white hover:text-black rounded-[10px]"
+            className="mt-2 border-2 border-white bg-transparent py-2 rounded-[10px]"
             analytics={{
               products: [productAnalytics],
               totalValue: parseFloat(productAnalytics.price),

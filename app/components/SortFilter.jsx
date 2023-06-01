@@ -112,14 +112,14 @@ export function FiltersDrawer({
           </div>
         ) : null}
 
-        <Heading as="h4" size="lead" className="pb-4 text-white">
+        <Heading as="h4" size="lead" className="pb-4">
           Filter By
         </Heading>
         <div className="divide-y">
           {filters.map(
             (filter) =>
               filter.values.length > 1 && (
-                <Disclosure as="div" key={filter.id} className="w-full text-white">
+                <Disclosure as="div" key={filter.id} className="w-full">
                   {({open}) => (
                     <>
                       <Disclosure.Button className="flex justify-between w-full py-4">

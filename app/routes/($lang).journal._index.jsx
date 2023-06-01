@@ -9,7 +9,6 @@ import {CACHE_SHORT, routeHeaders} from '~/data/cache';
 const BLOG_HANDLE = 'news';
 
 export const headers = routeHeaders;
-console.log('here')
 export const loader = async ({request, context: {storefront}}) => {
   const {language, country} = storefront.i18n;
   const {blog} = await storefront.query(BLOGS_QUERY, {
