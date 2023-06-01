@@ -1,5 +1,7 @@
 import {ProductCard, Section} from '~/components';
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const mockProducts = new Array(12).fill('');
 
 export function ProductSwimlane({
@@ -60,8 +62,8 @@ export function ProductSwimlane({
     ]
   };
   return (
-    <Section className="text-white" heading={title} padding="y" {...props}>
-      <div className="swimlane hiddenScroll md:pb-8 md:scroll-px-8 pt-2 lg:scroll-px-12 md:px-8 lg:px-12">
+    // <Section className="text-white" heading={title}>
+       <div > 
       <Slider {...settings}>
         {products.map((product) => (
         
@@ -72,7 +74,7 @@ export function ProductSwimlane({
           />
         ))}
         </Slider> 
-      </div>
-    </Section>
+       </div> 
+    // </Section>
   );
 }
