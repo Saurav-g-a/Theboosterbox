@@ -71,7 +71,7 @@ export function ProductSwimlane({
             className="snap-start w-80"
           />
         ))}
-        </Slider>
+        </Slider> 
       </div>
     </Section>
   );
