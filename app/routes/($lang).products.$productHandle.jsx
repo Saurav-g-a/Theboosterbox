@@ -239,7 +239,7 @@ export function ProductForm() {
                   },
                 ]}
                 variant="primary"
-                className='bg-transparent border-2 border-white py-3 rounded-[10px]'
+                className='bg-transparent border-2 border-white py-3 rounded-[10px] hover:text-black hover:bg-white'
                 data-test="add-to-cart"
                 analytics={{
                   products: [productAnalytics],

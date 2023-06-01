@@ -144,7 +144,7 @@ function CartCheckoutActions({checkoutUrl}) {
   return (
     <div className="flex flex-col mt-2 w-full">
       <a href={checkoutUrl} target="_self" className='w-full'>
-        <Button as="span" className="text-white bg-transparent py-2 border-2 rounded-[10px] lg:px-24 md:px-12 px-8 mx-auto w-full" width="full">
+        <Button as="span" className="text-white bg-transparent py-2 border-2 rounded-[10px] lg:px-24 md:px-12 px-8 mx-auto w-full hover:text-black hover:bg-white" width="full">
           Continue to Checkout
         </Button>
       </a>
@@ -352,7 +352,7 @@ export function CartEmpty({hidden = false, layout = 'drawer', onClose}) {
           started!
         </Text>
         <div>
-          <Button className="bg-transprent border-2 border-white rounded-[10px] px-12 py-2" onClick={onClose}>Continue shopping</Button>
+          <Button className="bg-transprent border-2 border-white rounded-[10px] px-12 py-2 hover:text-black hover:bg-white" onClick={onClose}>Continue shopping</Button>
         </div>
       </section>
       <section className="grid gap-8 pt-16 text-white">

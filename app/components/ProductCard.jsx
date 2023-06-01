@@ -121,7 +121,7 @@ export function ProductCard({
               },
             ]}
             variant="secondary"
-            className="mt-2 border-2 border-white bg-transparent py-2 rounded-[10px]"
+            className="mt-2 border-2 border-white bg-transparent py-2 rounded-[10px] hover:text-black hover:bg-white"
             analytics={{
               products: [productAnalytics],
               totalValue: parseFloat(productAnalytics.price),
