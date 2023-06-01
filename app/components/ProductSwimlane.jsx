@@ -10,7 +10,12 @@ export function ProductSwimlane({
   count = 12,
   ...props
 })
+
  {
+  const newCardData=products.filter((d)=>{
+    return(d.variants.nodes[0].quantityAvailable!=0)
+  })
+   console.log('looking for this',newCardData)
   const settings = {
     centerMode: true,
     speed: 500,
@@ -64,8 +69,9 @@ export function ProductSwimlane({
   return (
     // <Section className="text-white" heading={title}>
        <div > 
+        <h3 className="text-white">{title}</h3>
       <Slider {...settings}>
-        {products.map((product) => (
+        {newCardData.map((product) => (
         
         <ProductCard
             product={product}

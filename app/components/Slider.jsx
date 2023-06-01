@@ -22,7 +22,6 @@ export function Slider1({
     dots: true,
    
   };
-console.log('data',data.edges[0].node)
   return (
     <section className=" mx-auto ">
         <Slider {...settings} >
