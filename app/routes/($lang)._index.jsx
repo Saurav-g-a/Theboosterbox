@@ -117,7 +117,6 @@ export default function Homepage() {
             resolve={blogDatas}
           >
             {(blogDatas) => {
-              console.log('s', blogDatas)
               return (
                 <Slider1
                   data={blogDatas.articles}
