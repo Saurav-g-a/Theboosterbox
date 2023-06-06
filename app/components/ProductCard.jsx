@@ -43,7 +43,7 @@ export function ProductCard({
     <>
     {
       product.variants.nodes[0].quantityAvailable!=0  &&(
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 ">
         <Link
           onClick={onClick}
           to={`/products/${product.handle}`}
