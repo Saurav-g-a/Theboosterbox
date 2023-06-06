@@ -45,7 +45,7 @@ export function SortFilter({
           />
         </div>
         <div className="flex-1">{children}</div>
-      </div>
+      </div> 
     </>
   );
 }
