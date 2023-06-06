@@ -109,7 +109,7 @@ function Account({customer, orders, heading, addresses, featuredData}) {
     <>
       <PageHeader heading={heading}>
         <Form method="post" action={usePrefixPathWithLocale('/account/logout')}>
-          <button type="submit" className="text-white underline ">
+          <button type="submit" className="text-white border-2 rounded-[10px] hover:bg-white hover:text-black py-2 px-4 ">
             Logout
           </button>
         </Form>
